@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <!-- JSZip -->
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
   <style>
@@ -32,33 +31,75 @@
       min-height:100vh;
     }
 
-    .topbar{
-      position:sticky; top:0; z-index:10;
-      display:flex; justify-content:space-between; align-items:center;
-      padding:16px 22px;
-      backdrop-filter: blur(12px);
-      background: rgba(0,0,0,.35);
-      border-bottom:1px solid var(--border);
+    /* LOGIN */
+    .login-wrap{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
     }
-    .brand{font-weight:800}
-    .brand span{font-size:12px;color:var(--muted);margin-left:6px}
-
-    .topbar a{
-      text-decoration:none;
-      padding:10px 16px;
+    .login-card{
+      width:100%;
+      max-width:420px;
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+      border:1px solid var(--border);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      padding:28px;
+      text-align:center;
+    }
+    .login-card h1{
+      font-size:22px;
+      font-weight:800;
+      margin-bottom:6px;
+    }
+    .login-card p{
+      font-size:14px;
+      color:var(--muted);
+      margin-bottom:20px;
+    }
+    .login-card input{
+      width:100%;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      margin-bottom:12px;
+    }
+    .login-card button{
+      width:100%;
+      padding:12px;
       border-radius:14px;
       font-weight:800;
+      border:0;
+      cursor:pointer;
       color:#fff;
       background: linear-gradient(135deg,var(--primary),var(--primary2));
     }
 
-    .wrap{max-width:1100px;margin:0 auto;padding:30px 22px 60px}
-    h1{font-size:28px;font-weight:800;margin-bottom:6px}
-    .subtitle{color:var(--muted);margin-bottom:22px}
+    /* DASHBOARD */
+    .admin{display:none}
+    body.logged-in .login-wrap{display:none}
+    body.logged-in .admin{display:block}
 
+    .topbar{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:16px 22px;
+      background: rgba(0,0,0,.35);
+      border-bottom:1px solid var(--border);
+    }
+    .topbar a{
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:14px;
+      background: linear-gradient(135deg,var(--primary),var(--primary2));
+      color:#fff;font-weight:800;
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:30px 22px}
     .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px}
     @media(max-width:900px){.grid{grid-template-columns:1fr}}
-
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
       border:1px solid var(--border);
@@ -66,30 +107,6 @@
       box-shadow: var(--shadow);
       padding:22px;
     }
-
-    label{font-size:12px;color:var(--muted)}
-    input{
-      width:100%;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.06);
-      color:var(--text);
-      margin:6px 0 14px;
-    }
-
-    .btn{
-      padding:12px 16px;
-      border-radius:14px;
-      font-weight:800;
-      border:0;
-      cursor:pointer;
-      color:#fff;
-      background: linear-gradient(135deg,var(--primary),var(--primary2));
-      margin-right:8px;
-    }
-    .btn.danger{background: rgba(239,68,68,.25)}
-
     .item{
       display:flex;justify-content:space-between;align-items:center;
       padding:14px;border-radius:16px;
@@ -97,113 +114,99 @@
       border:1px solid var(--border);
       margin-bottom:10px;
     }
-    .item small{color:var(--muted);font-size:12px;word-break:break-all}
-
-    footer{text-align:center;color:var(--muted);font-size:13px;margin-top:50px}
+    .btn-danger{
+      background: rgba(239,68,68,.25);
+      border:0;color:#fff;font-weight:800;
+      padding:10px 14px;border-radius:14px;
+      cursor:pointer;
+    }
   </style>
 </head>
 
 <body>
 
-<!-- 🔐 LOGIN -->
-<script>
-  const USERNAME = "jack";
-  const PASSWORD = "SayangUci1";
-
-  if (sessionStorage.getItem("admin_login") !== "ok") {
-    const u = prompt("Username:");
-    const p = prompt("Password:");
-
-    if (u !== USERNAME || p !== PASSWORD) {
-      alert("Login gagal");
-      location.href = "/";
-    } else {
-      sessionStorage.setItem("admin_login","ok");
-    }
-  }
-</script>
-
-<header class="topbar">
-  <div class="brand">🛠️ Admin Panel <span>FX Community</span></div>
-  <a href="../">Lihat Katalog</a>
-</header>
-
-<main class="wrap">
-  <h1>Kelola Dokumen PDF</h1>
-  <p class="subtitle">Tambah, hapus dokumen lalu download ZIP untuk update hosting.</p>
-
-  <div class="grid">
-    <!-- FORM -->
-    <div class="card">
-      <h3>Tambah Dokumen</h3>
-      <label>Judul</label>
-      <input id="title" placeholder="Judul dokumen">
-      <label>URL PDF</label>
-      <input id="url" placeholder="pdf/nama.pdf atau https://...">
-      <button class="btn" id="add">+ Tambah</button>
-      <button class="btn" id="downloadZip">⬇ Download ZIP Update</button>
-    </div>
-
-    <!-- LIST -->
-    <div class="card">
-      <h3>Daftar Dokumen</h3>
-      <div id="list"></div>
-    </div>
+<!-- LOGIN -->
+<div class="login-wrap">
+  <div class="login-card">
+    <h1>Admin Login</h1>
+    <p>FX Community • Dashboard</p>
+    <input id="user" placeholder="Username">
+    <input id="pass" type="password" placeholder="Password">
+    <button onclick="login()">Masuk</button>
   </div>
+</div>
 
-  <footer>© <span id="year"></span> FX Community</footer>
-</main>
+<!-- ADMIN -->
+<div class="admin">
+  <header class="topbar">
+    <b>🛠️ Admin Panel</b>
+    <a href="../">Lihat Katalog</a>
+  </header>
+
+  <main class="wrap">
+    <div class="grid">
+      <div class="card">
+        <h3>Tambah Dokumen</h3>
+        <input id="title" placeholder="Judul">
+        <input id="url" placeholder="URL PDF">
+        <button onclick="add()">Tambah</button>
+        <button onclick="downloadZip()">⬇ Download ZIP</button>
+      </div>
+
+      <div class="card">
+        <h3>Daftar Dokumen</h3>
+        <div id="list"></div>
+      </div>
+    </div>
+  </main>
+</div>
 
 <script>
-  const listEl = document.getElementById("list");
-  const titleEl = document.getElementById("title");
-  const urlEl = document.getElementById("url");
-  const yearEl = document.getElementById("year");
-  let data = { items: [] };
+  const USER="jack", PASS="SayangUci1";
+  if(sessionStorage.getItem("admin")=="ok")document.body.classList.add("logged-in");
 
-  async function loadData(){
+  function login(){
+    if(user.value===USER && pass.value===PASS){
+      sessionStorage.setItem("admin","ok");
+      document.body.classList.add("logged-in");
+    }else alert("Username / Password salah");
+  }
+
+  let data={items:[]};
+  const list=document.getElementById("list");
+
+  async function load(){
     try{
-      const r = await fetch("../data/pdfs.json?_=" + Date.now());
-      data = await r.json();
-    }catch{ data={items:[]} }
+      const r=await fetch("../data/pdfs.json?_="+Date.now());
+      data=await r.json();
+    }catch{data={items:[]}}
     render();
   }
 
   function render(){
-    listEl.innerHTML = "";
-    if(!data.items.length){
-      listEl.innerHTML="<small>Belum ada dokumen.</small>";
-      return;
-    }
-    data.items.forEach((it,i)=>{
-      const d=document.createElement("div");
-      d.className="item";
-      d.innerHTML=`
-        <div>
-          <b>${it.title}</b>
-          <small>${it.url}</small>
-        </div>
-        <button class="btn danger" onclick="hapus(${i})">Hapus</button>
-      `;
-      listEl.appendChild(d);
+    list.innerHTML="";
+    if(!data.items.length){list.innerHTML="<small>Belum ada data</small>";return;}
+    data.items.forEach((i,x)=>{
+      list.innerHTML+=`
+        <div class="item">
+          <div><b>${i.title}</b><small>${i.url}</small></div>
+          <button class="btn-danger" onclick="del(${x})">Hapus</button>
+        </div>`;
     });
   }
 
-  function hapus(i){
-    if(confirm("Hapus dokumen ini?")){
-      data.items.splice(i,1);
-      render();
-    }
+  function add(){
+    if(!title.value||!url.value)return alert("Lengkapi data");
+    data.items.push({title:title.value,url:url.value});
+    title.value=url.value="";
+    render();
   }
 
-  document.getElementById("add").onclick=()=>{
-    if(!titleEl.value||!urlEl.value) return alert("Lengkapi data");
-    data.items.push({title:titleEl.value,url:urlEl.value});
-    titleEl.value="";urlEl.value="";
-    render();
-  };
+  function del(i){
+    if(confirm("Hapus dokumen?")){data.items.splice(i,1);render();}
+  }
 
-  document.getElementById("downloadZip").onclick=async()=>{
+  async function downloadZip(){
     const zip=new JSZip();
     zip.file("data/pdfs.json",JSON.stringify(data,null,2));
     const blob=await zip.generateAsync({type:"blob"});
@@ -211,10 +214,9 @@
     a.href=URL.createObjectURL(blob);
     a.download="update-katalog.zip";
     a.click();
-  };
+  }
 
-  yearEl.textContent=new Date().getFullYear();
-  loadData();
+  load();
 </script>
 
 </body>
