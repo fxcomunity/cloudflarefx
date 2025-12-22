@@ -4,18 +4,174 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Katalog Dokumen • FX Community</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="assets/style.css" />
+
+  <style>
+    body{
+      font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: radial-gradient(1200px 600px at 10% 10%, #2b2f66 0%, transparent 60%),
+                  radial-gradient(900px 500px at 90% 20%, #3b1f6e 0%, transparent 55%),
+                  linear-gradient(135deg, #0b1220, #151a33);
+      color:#e5e7eb;
+      min-height:100vh;
+    }
+
+    /* NAVBAR */
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:10;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 22px;
+      backdrop-filter: blur(12px);
+      background: rgba(0,0,0,.35);
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      font-size:16px;
+    }
+    .brand span{
+      font-size:12px;
+      font-weight:600;
+      color:#a1a1aa;
+    }
+
+    .nav a{
+      text-decoration:none;
+      padding:10px 16px;
+      border-radius:14px;
+      font-weight:800;
+      color:#fff;
+      background: linear-gradient(135deg,#7c3aed,#6d28d9);
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+
+    /* HERO */
+    .hero{
+      max-width:1100px;
+      margin:0 auto;
+      padding:70px 22px 40px;
+      text-align:center;
+    }
+    .hero h1{
+      font-size:42px;
+      font-weight:800;
+      letter-spacing:-.8px;
+      margin-bottom:12px;
+    }
+    .hero p{
+      max-width:620px;
+      margin:0 auto;
+      color:#a1a1aa;
+      font-size:16px;
+      line-height:1.6;
+    }
+
+    .meta{
+      margin-top:18px;
+      font-size:13px;
+      color:#a1a1aa;
+    }
+
+    /* LIST */
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      padding:20px 22px 60px;
+    }
+
+    .list{
+      display:grid;
+      grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+      gap:18px;
+      margin-top:30px;
+    }
+
+    .card{
+      border-radius:22px;
+      padding:20px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 20px 60px rgba(0,0,0,.45);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      transition:.2s;
+    }
+    .card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(124,58,237,.45);
+    }
+
+    .card h3{
+      font-size:16px;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    .card a{
+      text-decoration:none;
+      text-align:center;
+      padding:10px 14px;
+      border-radius:14px;
+      font-weight:800;
+      color:#fff;
+      background: linear-gradient(135deg,#7c3aed,#6d28d9);
+    }
+
+    footer{
+      text-align:center;
+      font-size:13px;
+      color:#a1a1aa;
+      padding:30px 16px 40px;
+    }
+  </style>
 </head>
+
 <body>
+
+  <!-- NAV -->
   <header class="nav">
-    <span>📚 FX Community</span>
+    <div class="brand">
+      📚 FX Community
+      <span>Katalog PDF</span>
+    </div>
     <a href="admin/">Admin</a>
   </header>
-  <main>
+
+  <!-- HERO -->
+  <section class="hero">
     <h1>Katalog Dokumen PDF</h1>
-    <div id="list"></div>
-    <p><span id="count">0</span> dokumen</p>
+    <p>
+      Kumpulan dokumen PDF resmi yang bisa kamu akses dengan cepat,
+      rapi, dan tanpa ribet.
+    </p>
+    <div class="meta">
+      <span id="count">0</span> dokumen tersedia
+    </div>
+  </section>
+
+  <!-- LIST -->
+  <main>
+    <div id="list" class="list"></div>
   </main>
+
+  <!-- FOOTER -->
+  <footer>
+    © <span id="year"></span> FX Community
+  </footer>
+
   <script src="assets/app.js"></script>
 </body>
 </html>
