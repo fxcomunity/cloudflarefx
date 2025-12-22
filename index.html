@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Katalog Dokumen • FX Community</title>
 
+  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
@@ -14,11 +15,13 @@
   <style>
     body{
       font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background: radial-gradient(1200px 600px at 10% 10%, #2b2f66 0%, transparent 60%),
-                  radial-gradient(900px 500px at 90% 20%, #3b1f6e 0%, transparent 55%),
-                  linear-gradient(135deg, #0b1220, #151a33);
+      background:
+        radial-gradient(1200px 600px at 10% 10%, #2b2f66 0%, transparent 60%),
+        radial-gradient(900px 500px at 90% 20%, #3b1f6e 0%, transparent 55%),
+        linear-gradient(135deg, #0b1220, #151a33);
       color:#e5e7eb;
       min-height:100vh;
+      margin:0;
     }
 
     /* NAVBAR */
@@ -34,16 +37,31 @@
       background: rgba(0,0,0,.35);
       border-bottom:1px solid rgba(255,255,255,.12);
     }
+
     .brand{
       display:flex;
       align-items:center;
-      gap:10px;
-      font-weight:800;
-      font-size:16px;
+      gap:14px;
     }
-    .brand span{
+
+    .brand img{
+      width:44px;
+      height:44px;
+      object-fit:contain;
+      border-radius:10px;
+      background: rgba(255,255,255,.06);
+      padding:4px;
+    }
+
+    .brand-text b{
+      display:block;
+      font-size:16px;
+      font-weight:800;
+      line-height:1.1;
+    }
+
+    .brand-text span{
       font-size:12px;
-      font-weight:600;
       color:#a1a1aa;
     }
 
@@ -64,12 +82,14 @@
       padding:70px 22px 40px;
       text-align:center;
     }
+
     .hero h1{
       font-size:42px;
       font-weight:800;
       letter-spacing:-.8px;
       margin-bottom:12px;
     }
+
     .hero p{
       max-width:620px;
       margin:0 auto;
@@ -109,6 +129,7 @@
       justify-content:space-between;
       transition:.2s;
     }
+
     .card:hover{
       transform: translateY(-3px);
       border-color: rgba(124,58,237,.45);
@@ -141,12 +162,19 @@
 
 <body>
 
-  <!-- NAV -->
+  <!-- NAVBAR -->
   <header class="nav">
     <div class="brand">
-      📚 FX Community
-      <span>Katalog PDF</span>
+      <img
+        src="https://i.ibb.co.com/kgNGgsgf/Screenshot-2025-12-23-062333.png"
+        alt="Logo FX Community"
+      />
+      <div class="brand-text">
+        <b>FX Community</b>
+        <span>Katalog Dokumen PDF</span>
+      </div>
     </div>
+
     <a href="admin/">Admin</a>
   </header>
 
@@ -154,8 +182,8 @@
   <section class="hero">
     <h1>Katalog Dokumen PDF</h1>
     <p>
-      Kumpulan dokumen PDF resmi yang bisa kamu akses dengan cepat,
-      rapi, dan tanpa ribet.
+      Kumpulan dokumen PDF yang tersusun rapi dan bisa kamu akses
+      kapan saja dengan cepat dan mudah.
     </p>
     <div class="meta">
       <span id="count">0</span> dokumen tersedia
