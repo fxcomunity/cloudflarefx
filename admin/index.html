@@ -9,22 +9,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 
+  <!-- JSZip -->
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
   <style>
     :root{
-      --bg1:#0b1220;
-      --bg2:#151a33;
-      --card: rgba(255,255,255,.08);
+      --bg1:#0b1220; --bg2:#151a33;
       --border: rgba(255,255,255,.14);
-      --text:#e5e7eb;
-      --muted:#a1a1aa;
-      --primary:#7c3aed;
-      --primary2:#6d28d9;
+      --text:#e5e7eb; --muted:#a1a1aa;
+      --primary:#7c3aed; --primary2:#6d28d9;
       --danger:#ef4444;
       --shadow:0 20px 60px rgba(0,0,0,.45);
     }
-
     *{box-sizing:border-box;margin:0;padding:0}
-
     body{
       font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background:
@@ -35,33 +32,16 @@
       min-height:100vh;
     }
 
-    /* TOPBAR */
     .topbar{
-      position:sticky;
-      top:0;
-      z-index:10;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+      position:sticky; top:0; z-index:10;
+      display:flex; justify-content:space-between; align-items:center;
       padding:16px 22px;
       backdrop-filter: blur(12px);
       background: rgba(0,0,0,.35);
       border-bottom:1px solid var(--border);
     }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-weight:800;
-      font-size:16px;
-    }
-
-    .brand span{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:600;
-    }
+    .brand{font-weight:800}
+    .brand span{font-size:12px;color:var(--muted);margin-left:6px}
 
     .topbar a{
       text-decoration:none;
@@ -72,33 +52,12 @@
       background: linear-gradient(135deg,var(--primary),var(--primary2));
     }
 
-    /* LAYOUT */
-    .wrap{
-      max-width:1100px;
-      margin:0 auto;
-      padding:30px 22px 60px;
-    }
+    .wrap{max-width:1100px;margin:0 auto;padding:30px 22px 60px}
+    h1{font-size:28px;font-weight:800;margin-bottom:6px}
+    .subtitle{color:var(--muted);margin-bottom:22px}
 
-    h1{
-      font-size:28px;
-      font-weight:800;
-      margin-bottom:8px;
-    }
-
-    .subtitle{
-      color:var(--muted);
-      margin-bottom:28px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:22px;
-    }
-
-    @media (max-width:900px){
-      .grid{grid-template-columns:1fr}
-    }
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px}
+    @media(max-width:900px){.grid{grid-template-columns:1fr}}
 
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
@@ -108,20 +67,7 @@
       padding:22px;
     }
 
-    .card h2{
-      font-size:16px;
-      font-weight:800;
-      margin-bottom:14px;
-    }
-
-    /* FORM */
-    label{
-      display:block;
-      font-size:12px;
-      color:var(--muted);
-      margin-bottom:6px;
-    }
-
+    label{font-size:12px;color:var(--muted)}
     input{
       width:100%;
       padding:12px 14px;
@@ -129,13 +75,10 @@
       border:1px solid var(--border);
       background: rgba(255,255,255,.06);
       color:var(--text);
-      margin-bottom:14px;
+      margin:6px 0 14px;
     }
 
     .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
       padding:12px 16px;
       border-radius:14px;
       font-weight:800;
@@ -143,159 +86,136 @@
       cursor:pointer;
       color:#fff;
       background: linear-gradient(135deg,var(--primary),var(--primary2));
+      margin-right:8px;
     }
+    .btn.danger{background: rgba(239,68,68,.25)}
 
-    /* LIST */
     .item{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:14px;
-      border-radius:16px;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:14px;border-radius:16px;
       background: rgba(255,255,255,.06);
       border:1px solid var(--border);
-      margin-bottom:12px;
+      margin-bottom:10px;
     }
+    .item small{color:var(--muted);font-size:12px;word-break:break-all}
 
-    .item b{
-      display:block;
-      margin-bottom:4px;
-    }
-
-    .item small{
-      color:var(--muted);
-      font-size:12px;
-      word-break:break-all;
-    }
-
-    .item-actions{
-      display:flex;
-      gap:8px;
-    }
-
-    .btn.danger{
-      background: rgba(239,68,68,.2);
-    }
-
-    footer{
-      text-align:center;
-      font-size:13px;
-      color:var(--muted);
-      margin-top:60px;
-    }
+    footer{text-align:center;color:var(--muted);font-size:13px;margin-top:50px}
   </style>
 </head>
 
 <body>
 
-  <!-- TOPBAR -->
-  <header class="topbar">
-    <div class="brand">
-      🛠️ Admin Panel
-      <span>FX Community</span>
-    </div>
-    <a href="../">Lihat Katalog</a>
-  </header>
+<!-- 🔐 LOGIN -->
+<script>
+  const USERNAME = "jack";
+  const PASSWORD = "SayangUci1";
 
-  <!-- CONTENT -->
-  <main class="wrap">
-    <h1>Kelola Dokumen PDF</h1>
-    <p class="subtitle">
-      Tambah, edit, dan hapus dokumen. Setelah selesai, update file JSON ke repo.
-    </p>
+  if (sessionStorage.getItem("admin_login") !== "ok") {
+    const u = prompt("Username:");
+    const p = prompt("Password:");
 
-    <div class="grid">
-      <!-- FORM -->
-      <div class="card">
-        <h2>Tambah Dokumen</h2>
-
-        <label>Judul Dokumen</label>
-        <input id="title" type="text" placeholder="Contoh: Materi Trading Dasar" />
-
-        <label>URL PDF</label>
-        <input id="url" type="text" placeholder="pdf/nama-file.pdf atau https://..." />
-
-        <button class="btn" id="add">+ Tambah Dokumen</button>
-      </div>
-
-      <!-- LIST -->
-      <div class="card">
-        <h2>Daftar Dokumen</h2>
-        <div id="list"></div>
-      </div>
-    </div>
-
-    <footer>
-      © <span id="year"></span> FX Community
-    </footer>
-  </main>
-
-  <script>
-    const listEl = document.getElementById("list");
-    const titleEl = document.getElementById("title");
-    const urlEl = document.getElementById("url");
-    const yearEl = document.getElementById("year");
-
-    let data = { items: [] };
-
-    async function loadData(){
-      try{
-        const res = await fetch("../data/pdfs.json?_=" + Date.now());
-        data = await res.json();
-        render();
-      }catch(e){
-        data = { items: [] };
-        render();
-      }
+    if (u !== USERNAME || p !== PASSWORD) {
+      alert("Login gagal");
+      location.href = "/";
+    } else {
+      sessionStorage.setItem("admin_login","ok");
     }
+  }
+</script>
 
-    function render(){
-      listEl.innerHTML = "";
-      if(!data.items.length){
-        listEl.innerHTML = "<small>Belum ada dokumen.</small>";
-        return;
-      }
+<header class="topbar">
+  <div class="brand">🛠️ Admin Panel <span>FX Community</span></div>
+  <a href="../">Lihat Katalog</a>
+</header>
 
-      data.items.forEach((item, i)=>{
-        const div = document.createElement("div");
-        div.className = "item";
-        div.innerHTML = `
-          <div>
-            <b>${item.title}</b>
-            <small>${item.url}</small>
-          </div>
-          <div class="item-actions">
-            <button class="btn danger" onclick="removeItem(${i})">Hapus</button>
-          </div>
-        `;
-        listEl.appendChild(div);
-      });
+<main class="wrap">
+  <h1>Kelola Dokumen PDF</h1>
+  <p class="subtitle">Tambah, hapus dokumen lalu download ZIP untuk update hosting.</p>
+
+  <div class="grid">
+    <!-- FORM -->
+    <div class="card">
+      <h3>Tambah Dokumen</h3>
+      <label>Judul</label>
+      <input id="title" placeholder="Judul dokumen">
+      <label>URL PDF</label>
+      <input id="url" placeholder="pdf/nama.pdf atau https://...">
+      <button class="btn" id="add">+ Tambah</button>
+      <button class="btn" id="downloadZip">⬇ Download ZIP Update</button>
+    </div>
+
+    <!-- LIST -->
+    <div class="card">
+      <h3>Daftar Dokumen</h3>
+      <div id="list"></div>
+    </div>
+  </div>
+
+  <footer>© <span id="year"></span> FX Community</footer>
+</main>
+
+<script>
+  const listEl = document.getElementById("list");
+  const titleEl = document.getElementById("title");
+  const urlEl = document.getElementById("url");
+  const yearEl = document.getElementById("year");
+  let data = { items: [] };
+
+  async function loadData(){
+    try{
+      const r = await fetch("../data/pdfs.json?_=" + Date.now());
+      data = await r.json();
+    }catch{ data={items:[]} }
+    render();
+  }
+
+  function render(){
+    listEl.innerHTML = "";
+    if(!data.items.length){
+      listEl.innerHTML="<small>Belum ada dokumen.</small>";
+      return;
     }
+    data.items.forEach((it,i)=>{
+      const d=document.createElement("div");
+      d.className="item";
+      d.innerHTML=`
+        <div>
+          <b>${it.title}</b>
+          <small>${it.url}</small>
+        </div>
+        <button class="btn danger" onclick="hapus(${i})">Hapus</button>
+      `;
+      listEl.appendChild(d);
+    });
+  }
 
-    function removeItem(i){
-      if(!confirm("Hapus dokumen ini?")) return;
+  function hapus(i){
+    if(confirm("Hapus dokumen ini?")){
       data.items.splice(i,1);
       render();
     }
+  }
 
-    document.getElementById("add").addEventListener("click", ()=>{
-      const title = titleEl.value.trim();
-      const url = urlEl.value.trim();
+  document.getElementById("add").onclick=()=>{
+    if(!titleEl.value||!urlEl.value) return alert("Lengkapi data");
+    data.items.push({title:titleEl.value,url:urlEl.value});
+    titleEl.value="";urlEl.value="";
+    render();
+  };
 
-      if(!title || !url){
-        alert("Judul dan URL wajib diisi");
-        return;
-      }
+  document.getElementById("downloadZip").onclick=async()=>{
+    const zip=new JSZip();
+    zip.file("data/pdfs.json",JSON.stringify(data,null,2));
+    const blob=await zip.generateAsync({type:"blob"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="update-katalog.zip";
+    a.click();
+  };
 
-      data.items.push({ title, url });
-      titleEl.value = "";
-      urlEl.value = "";
-      render();
-    });
-
-    yearEl.textContent = new Date().getFullYear();
-    loadData();
-  </script>
+  yearEl.textContent=new Date().getFullYear();
+  loadData();
+</script>
 
 </body>
 </html>
