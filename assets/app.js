@@ -1,6 +1,6 @@
-// 🔴 PAKAI URL /exec BARU HASIL REDEPLOY
+// 🔴 LINK APPS SCRIPT (SUDAH DIGANTI)
 const API_URL =
-  "https://script.google.com/macros/s/AKfycby5rHeoOBJU5TTkSuPw_CTXJUR10ALERkEEWIHdqBYOvJ1P-963bE7eV2KjkUgyJepc2A/exec";
+  "https://script.google.com/macros/s/AKfycbzTW4X0HmFeihMfJYhomjlibMOSuQXh_I-64vJPQIuVwtEnlqLr1boRzk9MZrW4qbJblA/exec";
 
 const list = document.getElementById("list");
 
@@ -18,12 +18,14 @@ async function loadPDF() {
       return;
     }
 
+    // kelompokkan berdasarkan kategori
     const groups = {};
     data.forEach(d => {
       groups[d.category] = groups[d.category] || [];
       groups[d.category].push(d);
     });
 
+    // render ke halaman
     for (const cat in groups) {
       const section = document.createElement("section");
       section.className = "category";
@@ -49,8 +51,8 @@ async function loadPDF() {
       list.appendChild(section);
     }
 
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
     list.innerHTML = "<p>Gagal memuat data.</p>";
   }
 }
