@@ -1,1 +1,6 @@
-{"items":[]}
+const { data } = supabase
+  .storage
+  .from("pdfs")
+  .getPublicUrl(fileName);
+
+console.log(data.publicUrl);
