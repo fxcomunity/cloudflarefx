@@ -5,89 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Katalog Dokumen • FX Community</title>
 
-  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
     body{
-      font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-family:"Plus Jakarta Sans",system-ui;
       background:
         radial-gradient(1200px 600px at 10% 10%, #2b2f66 0%, transparent 60%),
         radial-gradient(900px 500px at 90% 20%, #3b1f6e 0%, transparent 55%),
         linear-gradient(135deg, #0b1220, #151a33);
       color:#e5e7eb;
-      min-height:100vh;
       margin:0;
     }
 
-    /* NAVBAR */
-    .nav{
-      position:sticky;
-      top:0;
-      z-index:10;
+    header{
       display:flex;
-      align-items:center;
       justify-content:space-between;
+      align-items:center;
       padding:16px 22px;
-      backdrop-filter: blur(12px);
-      background: rgba(0,0,0,.35);
+      background:rgba(0,0,0,.35);
+      backdrop-filter:blur(12px);
       border-bottom:1px solid rgba(255,255,255,.12);
     }
 
-    .brand{
-      font-weight:800;
-      font-size:16px;
-      letter-spacing:.3px;
-    }
-
-    .nav a{
+    header a{
       text-decoration:none;
       padding:10px 16px;
       border-radius:14px;
       font-weight:800;
       color:#fff;
-      background: linear-gradient(135deg,#7c3aed,#6d28d9);
+      background:linear-gradient(135deg,#7c3aed,#6d28d9);
     }
 
-    /* HERO */
     .hero{
       max-width:1100px;
       margin:0 auto;
-      padding:70px 22px 30px;
+      padding:60px 22px 20px;
       text-align:center;
     }
 
     .hero h1{
-      font-size:42px;
+      font-size:40px;
       font-weight:800;
-      letter-spacing:-.8px;
-      margin-bottom:14px;
+      margin-bottom:12px;
     }
 
     .hero p{
+      color:#a1a1aa;
       max-width:620px;
       margin:0 auto;
-      color:#a1a1aa;
-      font-size:16px;
-      line-height:1.6;
     }
 
-    .meta{
-      margin-top:12px;
-      font-size:14px;
-      color:#a1a1aa;
-    }
-
-    /* MAIN */
     main{
       max-width:1100px;
       margin:0 auto;
       padding:10px 22px 80px;
     }
 
-    /* GRID PDF */
     .category{
       margin-top:40px;
     }
@@ -98,45 +74,32 @@
       margin-bottom:16px;
     }
 
-    .list{
+    .grid{
       display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+      grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
       gap:18px;
     }
 
     .card{
-      border-radius:22px;
-      padding:18px;
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
       border:1px solid rgba(255,255,255,.14);
+      border-radius:20px;
+      padding:16px;
       box-shadow:0 20px 60px rgba(0,0,0,.45);
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      transition:.2s;
-    }
-
-    .card:hover{
-      transform: translateY(-3px);
-      border-color: rgba(124,58,237,.45);
     }
 
     .card h3{
       font-size:15px;
       font-weight:800;
-      margin-bottom:14px;
-      line-height:1.4;
+      margin-bottom:12px;
     }
 
-    .card a{
-      text-decoration:none;
-      text-align:center;
-      padding:10px 14px;
+    iframe{
+      width:100%;
+      height:420px;
+      border:0;
       border-radius:14px;
-      font-weight:800;
-      color:#fff;
-      background: linear-gradient(135deg,#7c3aed,#6d28d9);
-      margin-top:8px;
+      background:#000;
     }
 
     footer{
@@ -148,48 +111,36 @@
 
     @media(max-width:640px){
       .hero h1{font-size:28px;}
-      .list{grid-template-columns:repeat(2,1fr);}
+      iframe{height:360px;}
     }
   </style>
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
-  <header class="nav">
-    <div class="brand">FX Community</div>
-    <a href="/admin/">Admin</a>
-  </header>
+<header>
+  <b>FX Community</b>
+  <a href="/admin/">Admin</a>
+</header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>Katalog Dokumen PDF</h1>
-    <p>
-      Kumpulan dokumen PDF yang dikelola langsung oleh admin
-      dan selalu diperbarui secara real-time.
-    </p>
-    <div class="meta">
-      <span id="count">0</span> dokumen tersedia
-    </div>
-  </section>
+<section class="hero">
+  <h1>Katalog Dokumen PDF</h1>
+  <p>Dokumen ditampilkan langsung dan diperbarui otomatis.</p>
+</section>
 
-  <!-- MAIN -->
-  <main>
-    <div id="list">Loading…</div>
-  </main>
+<main>
+  <div id="list">Loading…</div>
+</main>
 
-  <!-- FOOTER -->
-  <footer>
-    © <span id="year"></span> FX Community
-  </footer>
+<footer>
+  © <span id="year"></span> FX Community
+</footer>
 
-  <!-- SCRIPT -->
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
-  <!-- APP JS (WAJIB) -->
-  <script src="assets/app.js"></script>
+<script src="assets/app.js"></script>
 
 </body>
 </html>
