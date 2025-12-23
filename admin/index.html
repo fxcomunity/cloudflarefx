@@ -9,20 +9,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-
   <style>
     :root{
       --bg1:#0b1220; --bg2:#151a33;
       --border: rgba(255,255,255,.14);
       --text:#e5e7eb; --muted:#a1a1aa;
       --primary:#7c3aed; --primary2:#6d28d9;
-      --danger:#ef4444;
       --shadow:0 20px 60px rgba(0,0,0,.45);
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{
-      font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-family:"Plus Jakarta Sans",system-ui;
       background:
         radial-gradient(1000px 600px at 10% 10%, #2b2f66 0%, transparent 60%),
         radial-gradient(900px 500px at 90% 20%, #3b1f6e 0%, transparent 55%),
@@ -97,28 +94,33 @@
       background: linear-gradient(135deg,var(--primary),var(--primary2));
       color:#fff;font-weight:800;
     }
-    .wrap{max-width:1100px;margin:0 auto;padding:30px 22px}
-    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px}
-    @media(max-width:900px){.grid{grid-template-columns:1fr}}
+
+    .wrap{max-width:900px;margin:0 auto;padding:40px 22px}
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
       border:1px solid var(--border);
       border-radius:22px;
       box-shadow: var(--shadow);
-      padding:22px;
+      padding:26px;
     }
-    .item{
-      display:flex;justify-content:space-between;align-items:center;
-      padding:14px;border-radius:16px;
-      background: rgba(255,255,255,.06);
-      border:1px solid var(--border);
-      margin-bottom:10px;
+    .card h3{
+      font-size:18px;
+      font-weight:800;
+      margin-bottom:8px;
     }
-    .btn-danger{
-      background: rgba(239,68,68,.25);
-      border:0;color:#fff;font-weight:800;
-      padding:10px 14px;border-radius:14px;
-      cursor:pointer;
+    .card p{
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:18px;
+    }
+    .card a{
+      display:inline-block;
+      text-decoration:none;
+      padding:12px 18px;
+      border-radius:14px;
+      font-weight:800;
+      color:#fff;
+      background: linear-gradient(135deg,var(--primary),var(--primary2));
     }
   </style>
 </head>
@@ -144,79 +146,38 @@
   </header>
 
   <main class="wrap">
-    <div class="grid">
-      <div class="card">
-        <h3>Tambah Dokumen</h3>
-        <input id="title" placeholder="Judul">
-        <input id="url" placeholder="URL PDF">
-        <button onclick="add()">Tambah</button>
-        <button onclick="downloadZip()">⬇ Download ZIP</button>
-      </div>
+    <div class="card">
+      <h3>Kelola Dokumen PDF</h3>
+      <p>
+        Semua dokumen dikelola langsung melalui Google Drive.
+        Upload / hapus file di folder Drive, katalog akan
+        otomatis ter-update di website.
+      </p>
 
-      <div class="card">
-        <h3>Daftar Dokumen</h3>
-        <div id="list"></div>
-      </div>
+      <a
+        href="https://drive.google.com/drive/folders/11HxV2K-ehYiyHFeI4LNjMqmuV7ETG7A3"
+        target="_blank"
+      >
+        📂 Buka Folder Google Drive
+      </a>
     </div>
   </main>
 </div>
 
 <script>
   const USER="jack", PASS="SayangUci1";
-  if(sessionStorage.getItem("admin")=="ok")document.body.classList.add("logged-in");
+  if(sessionStorage.getItem("admin")=="ok"){
+    document.body.classList.add("logged-in");
+  }
 
   function login(){
     if(user.value===USER && pass.value===PASS){
       sessionStorage.setItem("admin","ok");
       document.body.classList.add("logged-in");
-    }else alert("Username / Password salah");
+    }else{
+      alert("Username / Password salah");
+    }
   }
-
-  let data={items:[]};
-  const list=document.getElementById("list");
-
-  async function load(){
-    try{
-      const r=await fetch("../data/pdfs.json?_="+Date.now());
-      data=await r.json();
-    }catch{data={items:[]}}
-    render();
-  }
-
-  function render(){
-    list.innerHTML="";
-    if(!data.items.length){list.innerHTML="<small>Belum ada data</small>";return;}
-    data.items.forEach((i,x)=>{
-      list.innerHTML+=`
-        <div class="item">
-          <div><b>${i.title}</b><small>${i.url}</small></div>
-          <button class="btn-danger" onclick="del(${x})">Hapus</button>
-        </div>`;
-    });
-  }
-
-  function add(){
-    if(!title.value||!url.value)return alert("Lengkapi data");
-    data.items.push({title:title.value,url:url.value});
-    title.value=url.value="";
-    render();
-  }
-
-  function del(i){
-    if(confirm("Hapus dokumen?")){data.items.splice(i,1);render();}
-  }
-
-  async function downloadZip(){
-    const zip=new JSZip();
-    zip.file("data/pdfs.json",JSON.stringify(data,null,2));
-    const blob=await zip.generateAsync({type:"blob"});
-    const a=document.createElement("a");
-    a.href=URL.createObjectURL(blob);
-    a.download="update-katalog.zip";
-    a.click();
-  }
-
-  load();
 </script>
 
 </body>
