@@ -39,6 +39,7 @@
     .brand{
       font-weight:800;
       font-size:16px;
+      letter-spacing:.3px;
     }
 
     .nav a{
@@ -54,14 +55,15 @@
     .hero{
       max-width:1100px;
       margin:0 auto;
-      padding:60px 22px 30px;
+      padding:70px 22px 30px;
       text-align:center;
     }
 
     .hero h1{
-      font-size:40px;
+      font-size:42px;
       font-weight:800;
-      margin-bottom:12px;
+      letter-spacing:-.8px;
+      margin-bottom:14px;
     }
 
     .hero p{
@@ -76,15 +78,40 @@
     main{
       max-width:1100px;
       margin:0 auto;
-      padding:0 22px 60px;
+      padding:20px 22px 80px;
     }
 
-    iframe{
-      width:100%;
-      height:1000px;
-      border:none;
-      border-radius:22px;
-      background:rgba(255,255,255,.05);
+    .box{
+      margin-top:40px;
+      padding:44px 28px;
+      text-align:center;
+      border-radius:24px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 20px 60px rgba(0,0,0,.45);
+    }
+
+    .box h2{
+      font-size:22px;
+      font-weight:800;
+      margin-bottom:10px;
+    }
+
+    .box p{
+      color:#a1a1aa;
+      margin-bottom:26px;
+      font-size:15px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:14px 24px;
+      border-radius:16px;
+      font-weight:800;
+      color:#fff;
+      text-decoration:none;
+      background: linear-gradient(135deg,#7c3aed,#6d28d9);
+      box-shadow:0 12px 30px rgba(0,0,0,.35);
     }
 
     footer{
@@ -96,7 +123,7 @@
 
     @media(max-width:640px){
       .hero h1{font-size:28px;}
-      iframe{height:1200px;}
+      .box{padding:34px 20px;}
     }
   </style>
 </head>
@@ -113,17 +140,29 @@
   <section class="hero">
     <h1>Katalog Dokumen PDF</h1>
     <p>
-      Kumpulan dokumen PDF yang dapat diakses kapan saja.
-      Dokumen diperbarui langsung oleh admin.
+      Kumpulan dokumen PDF yang dikelola langsung oleh admin.
+      Klik tombol di bawah untuk membuka katalog lengkap.
     </p>
   </section>
 
-  <!-- LIST PDF -->
+  <!-- MAIN -->
   <main>
-    <iframe
-      src="https://script.google.com/macros/s/AKfycbwP-15QxrHtZNcyvvmK1HNT1JHbSMienCgm1Hnir5TGdIitxXcFpTF0P7c2TF1xYHAm/exec"
-      loading="lazy">
-    </iframe>
+    <div class="box">
+      <h2>📂 Katalog Dokumen</h2>
+      <p>
+        Daftar dokumen PDF tersedia dan selalu diperbarui.
+        Akses melalui halaman katalog resmi.
+      </p>
+
+      <a
+        class="btn"
+        href="https://script.google.com/macros/s/AKfycbwP-15QxrHtZNcyvvmK1HNT1JHbSMienCgm1Hnir5TGdIitxXcFpTF0P7c2TF1xYHAm/exec"
+        target="_blank"
+        rel="noopener"
+      >
+        👉 Buka Katalog PDF
+      </a>
+    </div>
   </main>
 
   <!-- FOOTER -->
