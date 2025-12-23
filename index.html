@@ -74,44 +74,69 @@
       line-height:1.6;
     }
 
+    .meta{
+      margin-top:12px;
+      font-size:14px;
+      color:#a1a1aa;
+    }
+
     /* MAIN */
     main{
       max-width:1100px;
       margin:0 auto;
-      padding:20px 22px 80px;
+      padding:10px 22px 80px;
     }
 
-    .box{
+    /* GRID PDF */
+    .category{
       margin-top:40px;
-      padding:44px 28px;
-      text-align:center;
-      border-radius:24px;
+    }
+
+    .category h2{
+      font-size:22px;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    .list{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+      gap:18px;
+    }
+
+    .card{
+      border-radius:22px;
+      padding:18px;
       background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
       border:1px solid rgba(255,255,255,.14);
       box-shadow:0 20px 60px rgba(0,0,0,.45);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      transition:.2s;
     }
 
-    .box h2{
-      font-size:22px;
-      font-weight:800;
-      margin-bottom:10px;
+    .card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(124,58,237,.45);
     }
 
-    .box p{
-      color:#a1a1aa;
-      margin-bottom:26px;
+    .card h3{
       font-size:15px;
+      font-weight:800;
+      margin-bottom:14px;
+      line-height:1.4;
     }
 
-    .btn{
-      display:inline-block;
-      padding:14px 24px;
-      border-radius:16px;
+    .card a{
+      text-decoration:none;
+      text-align:center;
+      padding:10px 14px;
+      border-radius:14px;
       font-weight:800;
       color:#fff;
-      text-decoration:none;
       background: linear-gradient(135deg,#7c3aed,#6d28d9);
-      box-shadow:0 12px 30px rgba(0,0,0,.35);
+      margin-top:8px;
     }
 
     footer{
@@ -123,7 +148,7 @@
 
     @media(max-width:640px){
       .hero h1{font-size:28px;}
-      .box{padding:34px 20px;}
+      .list{grid-template-columns:repeat(2,1fr);}
     }
   </style>
 </head>
@@ -140,29 +165,17 @@
   <section class="hero">
     <h1>Katalog Dokumen PDF</h1>
     <p>
-      Kumpulan dokumen PDF yang dikelola langsung oleh admin.
-      Klik tombol di bawah untuk membuka katalog lengkap.
+      Kumpulan dokumen PDF yang dikelola langsung oleh admin
+      dan selalu diperbarui secara real-time.
     </p>
+    <div class="meta">
+      <span id="count">0</span> dokumen tersedia
+    </div>
   </section>
 
   <!-- MAIN -->
   <main>
-    <div class="box">
-      <h2>📂 Katalog Dokumen</h2>
-      <p>
-        Daftar dokumen PDF tersedia dan selalu diperbarui.
-        Akses melalui halaman katalog resmi.
-      </p>
-
-      <a
-        class="btn"
-        href="https://script.google.com/macros/s/AKfycbwP-15QxrHtZNcyvvmK1HNT1JHbSMienCgm1Hnir5TGdIitxXcFpTF0P7c2TF1xYHAm/exec"
-        target="_blank"
-        rel="noopener"
-      >
-        👉 Buka Katalog PDF
-      </a>
-    </div>
+    <div id="list">Loading…</div>
   </main>
 
   <!-- FOOTER -->
@@ -170,9 +183,13 @@
     © <span id="year"></span> FX Community
   </footer>
 
+  <!-- SCRIPT -->
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
+  <!-- APP JS (WAJIB) -->
+  <script src="assets/app.js"></script>
 
 </body>
 </html>
